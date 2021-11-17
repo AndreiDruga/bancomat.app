@@ -1,0 +1,43 @@
+﻿<div class="bancomat-app-index-container">
+    <div class="bancomat-app-index-buttons">
+        <p class="text-center">Amount to Deposit</p>
+        <input type="text" class="form-control" id="newSold" aria-label="Amount (to the nearest dollar)">
+        <button class="btn btn-primary" onclick="incrementSold()" role="button">Deposit</button>
+        <a class="btn btn-primary" asp-controller="Home" asp-action="Index" role="button">Back</a>
+        <span id="error" class=" text-center"></span>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function incrementSold() {
+        const dataBody = { amount: parseInt(document.getElementById("newSold").value), toIncrement: true }
+
+        $.ajax({
+            url: '@Url.Action("ChangeBalanceValue","Bancomat")',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            dataType: "json",
+            data: JSON.stringify(dataBody),
+            success: function () {
+                console.log("success");
+            }
+        });
+        errorMessage();
+    }
+</script>
+
+<script>
+    function errorMessage() {
+        var error = document.getElementById("error")
+        if ((parseInt(document.getElementById("newSold").value)>4000)) {
+            error.innerHTML = "<span style='color: red;'>" +
+                "Amount exceeded!</span>"
+        } else {
+            error.innerHTML = "<span style='color: green;'>" +
+                "Deposit was done.</span>"
+        }
+    }
+</script>

@@ -1,0 +1,13 @@
+﻿@model UserBalance
+<div class="bancomat-app-index-container">
+    <div class="bancomat-app-index-buttons">
+        <div class="col"></div>
+        <div class="col">
+            <div class="d-grid gap-2">
+                <p class="text-center">Amount<br /> @Model.Amount</p>
+                <a class="btn btn-primary" asp-controller="Home" asp-action="Index" role="button">Back</a>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>

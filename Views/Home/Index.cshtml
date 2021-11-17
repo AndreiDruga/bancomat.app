@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="container bancomat-app-index-container">
+        <div class="bancomat-app-index-buttons">
+            <h3>Meniu principal</h3><br />
+            <a class="btn btn-primary" asp-controller="Bancomat" asp-action="Balance" role="button">Balance</a>
+            <a class="btn btn-primary" asp-controller="Bancomat" asp-action="Deposit" role="button">Deposit</a>
+            <a class="btn btn-primary" asp-controller="Bancomat" asp-action="Withdraw" role="button">Withdraw</a>
+            <a class="btn btn-primary" asp-controller="Bancomat" asp-action="Transfer" role="button">Transfer</a>
+        </div>
+    </div>
+}
+else
+{
+    <div> Welcome screen </div>
+}
