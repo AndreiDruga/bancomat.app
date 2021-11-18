@@ -1,5 +1,6 @@
 ﻿using bancomat.app.Data.Repository.BalanceActionRepo;
 using bancomat.app.Data.Repository.BalanceRepo;
+using bancomat.app.Data.Repository.TransferToRepo;
 using bancomat.app.Models;
 using bancomat.app.Models.Transfer;
 using Microsoft.AspNetCore.Identity;
@@ -15,16 +16,18 @@ namespace bancomat.app.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IBalanceRepository _balanceRepository;
         private readonly IAuditItemsRepository _auditItemsRepository;
-
+        private readonly IAmountToRepository _amountToRepository;
         public BancomatController(UserManager<IdentityUser> userManager,
                                   ILogger<BancomatController> logger,
                                   IBalanceRepository balanceRepository,
-                                  IAuditItemsRepository auditItemsRepository)
+                                  IAuditItemsRepository auditItemsRepository
+                                 /* IAmountToRepository amountToRepository*/)
         {
             _userManager = userManager;
             _logger = logger;
             _balanceRepository = balanceRepository;
             _auditItemsRepository = auditItemsRepository;
+            /*_amountToRepository = amountToRepository*/;
         }
 
         public IActionResult Balance()
@@ -74,8 +77,10 @@ namespace bancomat.app.Controllers
             return Ok();
         }
 
-        public IActionResult TransferAmount([FromBody] TransferAmountModel model)
+        public IActionResult AmountTo([FromBody] AmountTo model)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userBalance = _balanceRepository.GetByUserId(userId);
             return Ok();
         }
 

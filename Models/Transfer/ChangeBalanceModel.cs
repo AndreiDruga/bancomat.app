@@ -4,6 +4,5 @@
     {
         public int Amount { get; set; }
         public bool ToIncrement { get; set; }
-
     }
 }
