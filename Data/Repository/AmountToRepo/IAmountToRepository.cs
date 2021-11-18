@@ -4,9 +4,8 @@
 
 namespace bancomat.app.Data.Repository.TransferToRepo
 {
-    interface IAmountToRepository
+   public interface IAmountToRepository
     {
-     
         public AmountTo GetByUserEmail(string Email);
 
     }

@@ -8,5 +8,6 @@ namespace bancomat.app.Models
         public int Id { get; set; }
         public string Email { get; set; }
         public double Amount { get; set; }
+        public bool TransferTo { get; set; }
     }
 }

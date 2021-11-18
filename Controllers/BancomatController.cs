@@ -20,14 +20,14 @@ namespace bancomat.app.Controllers
         public BancomatController(UserManager<IdentityUser> userManager,
                                   ILogger<BancomatController> logger,
                                   IBalanceRepository balanceRepository,
-                                  IAuditItemsRepository auditItemsRepository
-                                 /* IAmountToRepository amountToRepository*/)
+                                  IAuditItemsRepository auditItemsRepository,
+                                  IAmountToRepository amountToRepository )
         {
             _userManager = userManager;
             _logger = logger;
             _balanceRepository = balanceRepository;
             _auditItemsRepository = auditItemsRepository;
-            /*_amountToRepository = amountToRepository*/;
+            _amountToRepository = amountToRepository;
         }
 
         public IActionResult Balance()
@@ -79,8 +79,17 @@ namespace bancomat.app.Controllers
 
         public IActionResult AmountTo([FromBody] AmountTo model)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId= User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userBalance = _balanceRepository.GetByUserId(userId);
+
+            var userEmail = User.FindFirstValue(ClaimTypes.Email);
+            var userBalanceTo = _amountToRepository.GetByUserEmail(userEmail);
+
+            if (model.Email==userEmail)
+            {
+                userBalance.Amount -= model.Amount;
+               userBalanceTo.Amount += model.Amount;
+            }
             return Ok();
         }
 
