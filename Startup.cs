@@ -1,4 +1,5 @@
 using bancomat.app.Data;
+using bancomat.app.Data.Repository.AccountToRepo;
 using bancomat.app.Data.Repository.BalanceActionRepo;
 using bancomat.app.Data.Repository.BalanceRepo;
 using Microsoft.AspNetCore.Builder;
@@ -39,6 +40,7 @@ namespace bancomat.app
             services.AddControllersWithViews();
             services.AddScoped<IBalanceRepository, BalanceRepository>();
             services.AddScoped<IAuditItemsRepository, AuditItemsRepository>();
+            services.AddScoped<IAccountToRepository, AccountToRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

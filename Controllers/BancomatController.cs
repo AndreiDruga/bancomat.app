@@ -1,4 +1,5 @@
-﻿using bancomat.app.Data.Repository.BalanceActionRepo;
+﻿using bancomat.app.Data.Repository.AccountToRepo;
+using bancomat.app.Data.Repository.BalanceActionRepo;
 using bancomat.app.Data.Repository.BalanceRepo;
 using bancomat.app.Models;
 using bancomat.app.Models.Transfer;
@@ -15,16 +16,19 @@ namespace bancomat.app.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IBalanceRepository _balanceRepository;
         private readonly IAuditItemsRepository _auditItemsRepository;
+        private readonly IAccountToRepository _accountToRepository;
 
         public BancomatController(UserManager<IdentityUser> userManager,
                                   ILogger<BancomatController> logger,
                                   IBalanceRepository balanceRepository,
-                                  IAuditItemsRepository auditItemsRepository)
+                                  IAuditItemsRepository auditItemsRepository,
+                                  IAccountToRepository accountToRepository)
         {
             _userManager = userManager;
             _logger = logger;
             _balanceRepository = balanceRepository;
             _auditItemsRepository = auditItemsRepository;
+            _accountToRepository = accountToRepository;
         }
 
         public IActionResult Balance()
@@ -74,6 +78,26 @@ namespace bancomat.app.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        public IActionResult TransferTo([FromBody] TransferToModel model)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userBalance = _balanceRepository.GetByUserId(userId);
+
+            var userEmail = User.FindFirstValue(ClaimTypes.Email);
+            var accountTo = _accountToRepository.GetByUserEmail(userEmail);
+
+            if (model.Email == userEmail)
+            {
+                userBalance.Amount -= model.Amount;
+                accountTo.Amount += model.Amount;
+            }
+              _balanceRepository.UpdateUserBalance(userBalance);
+              _accountToRepository.UpdateUserAccountTo(accountTo);
+            return Ok();
+        }
+
+
         public IActionResult Deposit()
         {
             return View();
@@ -83,5 +107,7 @@ namespace bancomat.app.Controllers
         {
             return View();
         }
+
+
     }
 }
