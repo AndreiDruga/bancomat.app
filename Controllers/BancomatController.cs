@@ -84,8 +84,20 @@ namespace bancomat.app.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userBalance = _balanceRepository.GetByUserId(userId);
 
-            var userEmail = User.FindFirstValue(ClaimTypes.Email);
+            var userEmail = model.Email;
             var accountTo = _accountToRepository.GetByUserEmail(userEmail);
+
+
+            if (accountTo == null)
+            {
+                accountTo = new Account()
+                {
+                    Amount =0 ,
+                    Email = userEmail
+                };
+                _accountToRepository.UpdateUserAccountTo(accountTo);
+            }
+
 
             if (model.Email == userEmail)
             {
@@ -107,6 +119,11 @@ namespace bancomat.app.Controllers
         {
             return View();
         }
+        public IActionResult TransferTo()
+        {
+            return View();
+        }
+
 
 
     }

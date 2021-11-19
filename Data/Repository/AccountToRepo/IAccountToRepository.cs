@@ -8,8 +8,8 @@ namespace bancomat.app.Data.Repository.AccountToRepo
 {
     public interface IAccountToRepository
     {
-        public AccountTo GetByUserEmail(string userEmail);
-        public void CreateAccountTo(AccountTo accountTo);
-        public void UpdateUserAccountTo(AccountTo accountTo);
+        public Account GetByUserEmail(string userEmail);
+        public void CreateAccountTo(Account accountTo);
+        public void UpdateUserAccountTo(Account accountTo);
     }
 }

@@ -174,3 +174,4 @@ D:\repo\bancomat.app\obj\Debug\net5.0\bancomat.app.dll
 D:\repo\bancomat.app\obj\Debug\net5.0\ref\bancomat.app.dll
 D:\repo\bancomat.app\obj\Debug\net5.0\bancomat.app.pdb
 D:\repo\bancomat.app\obj\Debug\net5.0\bancomat.app.genruntimeconfig.cache
+D:\repo\bancomat.app\obj\Debug\net5.0\Razor\Views\Bancomat\TransferTo.cshtml.g.cs

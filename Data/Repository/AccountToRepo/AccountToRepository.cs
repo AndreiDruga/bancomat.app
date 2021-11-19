@@ -15,21 +15,21 @@ namespace bancomat.app.Data.Repository.AccountToRepo
             _context = context;
         }
 
-        public void CreateAccountTo(AccountTo accountTo)
+        public void CreateAccountTo(Account accountTo)
         {
-            _context.Set<AccountTo>().Add(accountTo);
+            _context.Set<Account>().Add(accountTo);
             _context.SaveChanges();
         }
 
         
-        public AccountTo GetByUserEmail(string userEmail)
+        public Account GetByUserEmail(string userEmail)
         {
-            return _context.Set<AccountTo>().Where(at => at.Email == userEmail).FirstOrDefault();
+            return _context.Set<Account>().Where(at => at.Email == userEmail).FirstOrDefault();
         }
 
-        public void UpdateUserAccountTo(AccountTo accountTo)
+        public void UpdateUserAccountTo(Account accountTo)
         {
-            _context.Set<AccountTo>().Update(accountTo);
+            _context.Set<Account>().Update(accountTo);
             _context.SaveChanges();
         }
     }

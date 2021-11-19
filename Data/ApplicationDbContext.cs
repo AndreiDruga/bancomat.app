@@ -13,6 +13,6 @@ namespace bancomat.app.Data
 
         public virtual DbSet<UserBalance> Balances { get; set; }
         public virtual DbSet<AuditItem> Audits { get; set; }
-        public virtual DbSet<AccountTo> Accounts { get; set; }
+        public virtual DbSet<Account> ToAccount { get; set; }
     }
 }

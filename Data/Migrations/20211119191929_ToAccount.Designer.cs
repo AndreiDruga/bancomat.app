@@ -10,8 +10,8 @@ using bancomat.app.Data;
 namespace bancomat.app.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211119183009_ChangeAccountTo")]
-    partial class ChangeAccountTo
+    [Migration("20211119191929_ToAccount")]
+    partial class ToAccount
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,7 +221,7 @@ namespace bancomat.app.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("bancomat.app.Models.AccountTo", b =>
+            modelBuilder.Entity("bancomat.app.Models.Account", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -234,9 +234,12 @@ namespace bancomat.app.Data.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Userid")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Accounts");
+                    b.ToTable("ToAccount");
                 });
 
             modelBuilder.Entity("bancomat.app.Models.AuditItem", b =>

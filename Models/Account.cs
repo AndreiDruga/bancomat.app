@@ -2,14 +2,15 @@
 
 namespace bancomat.app.Models
 {
-    public class AccountTo
+    public class Account
     {  
         [Key]
         public int Id { get; set; }
+        public int Userid { get; set; }
 
-       public string Email { get; set; }
+        public string Email { get; set; }
 
-       public double Amount { get; set; }
+        public double Amount { get; set; }
 
     }
 }
