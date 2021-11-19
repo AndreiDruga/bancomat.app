@@ -2,7 +2,7 @@
     <div class="bancomat-app-index-buttons">
         <p class="text-center">Amount to Deposit</p>
         <input type="text" class="form-control" id="newSold" aria-label="Amount (to the nearest dollar)">
-        <button class="btn btn-primary" onclick="incrementSold()" role="button">Deposit</button>
+        <a class="btn btn-primary" onclick="incrementSold()" role="button">Deposit</a>
         <a class="btn btn-primary" asp-controller="Home" asp-action="Index" role="button">Back</a>
         <span id="error" class=" text-center"></span>
     </div>
@@ -32,7 +32,7 @@
 <script>
     function errorMessage() {
         var error = document.getElementById("error")
-        if ((parseInt(document.getElementById("newSold").value)>4000)) {
+        if ((parseInt(document.getElementById("newSold").value) > 4000)) {
             error.innerHTML = "<span style='color: red;'>" +
                 "Amount exceeded!</span>"
         } else {

@@ -87,6 +87,6 @@ body {
     text-align: center;
 }
 
-    .bancomat-app-index-buttons > button,a {
+    .bancomat-app-index-buttons > a {
         margin: 0.2em
     }

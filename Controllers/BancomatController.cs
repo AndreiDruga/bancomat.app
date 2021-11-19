@@ -1,6 +1,5 @@
 ﻿using bancomat.app.Data.Repository.BalanceActionRepo;
 using bancomat.app.Data.Repository.BalanceRepo;
-using bancomat.app.Data.Repository.TransferToRepo;
 using bancomat.app.Models;
 using bancomat.app.Models.Transfer;
 using Microsoft.AspNetCore.Identity;
@@ -16,18 +15,16 @@ namespace bancomat.app.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IBalanceRepository _balanceRepository;
         private readonly IAuditItemsRepository _auditItemsRepository;
-        private readonly IAmountToRepository _amountToRepository;
+
         public BancomatController(UserManager<IdentityUser> userManager,
                                   ILogger<BancomatController> logger,
                                   IBalanceRepository balanceRepository,
-                                  IAuditItemsRepository auditItemsRepository,
-                                  IAmountToRepository amountToRepository )
+                                  IAuditItemsRepository auditItemsRepository)
         {
             _userManager = userManager;
             _logger = logger;
             _balanceRepository = balanceRepository;
             _auditItemsRepository = auditItemsRepository;
-            _amountToRepository = amountToRepository;
         }
 
         public IActionResult Balance()
@@ -59,13 +56,13 @@ namespace bancomat.app.Controllers
                 UserId = userId
             };
 
-            if (model.ToIncrement && model.Amount<=4000)
+            if (model.ToIncrement && model.Amount <= 4000)
             {
                 userBalance.Amount += model.Amount;
                 auditItem.NewAmount = userBalance.Amount;
                 auditItem.Details = "Deposit was done.";
             }
-            else if(!(model.ToIncrement) && model.Amount <= 500)
+            else if (!(model.ToIncrement) && model.Amount <= 500)
             {
                 userBalance.Amount -= model.Amount;
                 auditItem.NewAmount = userBalance.Amount;
@@ -77,32 +74,12 @@ namespace bancomat.app.Controllers
             return Ok();
         }
 
-        public IActionResult AmountTo([FromBody] AmountTo model)
-        {
-            var userId= User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userBalance = _balanceRepository.GetByUserId(userId);
-
-            var userEmail = User.FindFirstValue(ClaimTypes.Email);
-            var userBalanceTo = _amountToRepository.GetByUserEmail(userEmail);
-
-            if (model.Email==userEmail)
-            {
-                userBalance.Amount -= model.Amount;
-               userBalanceTo.Amount += model.Amount;
-            }
-            return Ok();
-        }
-
         public IActionResult Deposit()
         {
             return View();
         }
 
         public IActionResult Withdraw()
-        {
-            return View();
-        }
-        public IActionResult Transfer()
         {
             return View();
         }
