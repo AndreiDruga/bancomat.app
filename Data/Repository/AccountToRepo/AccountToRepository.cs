@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using bancomat.app.Models;
-
-namespace bancomat.app.Data.Repository.AccountToRepo
+﻿namespace bancomat.app.Data.Repository.AccountToRepo
 {
     public class AccountToRepository : IAccountToRepository
     {
@@ -15,22 +9,15 @@ namespace bancomat.app.Data.Repository.AccountToRepo
             _context = context;
         }
 
-        public void CreateAccountTo(Account accountTo)
-        {
-            _context.Set<Account>().Add(accountTo);
-            _context.SaveChanges();
-        }
+       
 
-        
-        public Account GetByUserEmail(string userEmail)
-        {
-            return _context.Set<Account>().Where(at => at.Email == userEmail).FirstOrDefault();
-        }
+        //public void CreateAccountTo(Account accountTo)
+        //{
+            
+        //    //_context.Set<Account>().Add(accountTo);
+        //    _context.SaveChanges();
+        //}
 
-        public void UpdateUserAccountTo(Account accountTo)
-        {
-            _context.Set<Account>().Update(accountTo);
-            _context.SaveChanges();
-        }
+       
     }
 }

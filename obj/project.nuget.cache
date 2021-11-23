@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "KOFGMYfjKUO39otMUhrA15KASRhg6Jrmtc/+jSfJqUwjhMA1sxJqN6Tj3SuX3RWqrZN5lWVvser7wkW9dW0fbw==",
+  "dgSpecHash": "amYBTtbCaqLIbH7ZS4mOARQFZSXem1M/KKP9/H7VOl8fdZY5mb52RjTsXykR9GGWZYoPjIJu5OCJCdqlJbpjfw==",
   "success": true,
   "projectFilePath": "D:\\repo\\bancomat.app\\bancomat.app.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ducu\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\Ducu\\.nuget\\packages\\identitymodel\\5.2.0\\identitymodel.5.2.0.nupkg.sha512",
     "C:\\Users\\Ducu\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.10\\microsoft.aspnetcore.cryptography.internal.5.0.10.nupkg.sha512",
     "C:\\Users\\Ducu\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\5.0.10\\microsoft.aspnetcore.cryptography.keyderivation.5.0.10.nupkg.sha512",
     "C:\\Users\\Ducu\\.nuget\\packages\\microsoft.aspnetcore.diagnostics.entityframeworkcore\\5.0.10\\microsoft.aspnetcore.diagnostics.entityframeworkcore.5.0.10.nupkg.sha512",

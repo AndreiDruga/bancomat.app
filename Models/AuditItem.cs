@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 namespace bancomat.app.Models
 {
     public class AuditItem

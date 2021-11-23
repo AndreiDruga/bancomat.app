@@ -8,6 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 
+
+
+
+
+
 namespace bancomat.app.Controllers
 {
     public class BancomatController : Controller
@@ -22,7 +27,7 @@ namespace bancomat.app.Controllers
                                   ILogger<BancomatController> logger,
                                   IBalanceRepository balanceRepository,
                                   IAuditItemsRepository auditItemsRepository,
-                                  IAccountToRepository accountToRepository)
+                                  IAccountToRepository accountToRepository )
         {
             _userManager = userManager;
             _logger = logger;
@@ -31,11 +36,29 @@ namespace bancomat.app.Controllers
             _accountToRepository = accountToRepository;
         }
 
+       
+
+      
+        [HttpPost]
+        public IActionResult TransferTo([FromBody] AccountTo model)
+        {
+            //AspNetUserContext ac = new AspNetUserContext();
+            //AspNetUserModel userEmail = (AspNetUserModel)ac.userDetails.Where(ue => ue.Email == model.Username);
+            //Console.WriteLine(userEmail);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userBalance = _balanceRepository.GetByUserId(userId);
+            var balanceTo = _balanceRepository.GetByUserId(model.UserId);
+            userBalance.Amount -= model.Amount; 
+            balanceTo.Amount += model.Amount;
+            _balanceRepository.UpdateUserBalance(userBalance);
+            _balanceRepository.UpdateUserBalance(balanceTo);
+
+            return Ok();
+        }
         public IActionResult Balance()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userBalance = _balanceRepository.GetByUserId(userId);
-
             if (userBalance == null)
             {
                 userBalance = new UserBalance()
@@ -45,7 +68,6 @@ namespace bancomat.app.Controllers
                 };
                 _balanceRepository.CreateUserBalance(userBalance);
             }
-
             return View(userBalance);
         }
 
@@ -74,42 +96,8 @@ namespace bancomat.app.Controllers
             }
             _balanceRepository.UpdateUserBalance(userBalance);
             _auditItemsRepository.InsertAuditItem(auditItem);
-
             return Ok();
         }
-
-        [HttpPost]
-        public IActionResult TransferTo([FromBody] TransferToModel model)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userBalance = _balanceRepository.GetByUserId(userId);
-
-            var userEmail = model.Email;
-            var accountTo = _accountToRepository.GetByUserEmail(userEmail);
-
-
-            if (accountTo == null)
-            {
-                accountTo = new Account()
-                {
-                    Amount =0 ,
-                    Email = userEmail
-                };
-                _accountToRepository.UpdateUserAccountTo(accountTo);
-            }
-
-
-            if (model.Email == userEmail)
-            {
-                userBalance.Amount -= model.Amount;
-                accountTo.Amount += model.Amount;
-            }
-              _balanceRepository.UpdateUserBalance(userBalance);
-              _accountToRepository.UpdateUserAccountTo(accountTo);
-            return Ok();
-        }
-
-
         public IActionResult Deposit()
         {
             return View();
@@ -123,8 +111,15 @@ namespace bancomat.app.Controllers
         {
             return View();
         }
-
-
-
     }
 }
+
+//var userName = User.FindAll(ClaimTypes.Name);
+//Account account = new Account
+//{
+//    Email = userName.ToString()
+
+
+//};
+//_accountToRepository.CreateAccountTo(account);
+//return Ok();

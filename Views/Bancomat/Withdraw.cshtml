@@ -2,12 +2,11 @@
     <div class="bancomat-app-index-buttons">
         <p class="text-center">Introduceti suma</p>
         <input type="text" class="form-control" id="newSold" aria-label="Amount (to the nearest dollar)">
-        <a class="btn btn-primary" onclick="decrementSold()" role="button">Withdraw</a>
+        <button class=" btn btn-primary" onclick="decrementSold()" role="button">Withdraw</button>
         <a class="btn btn-primary" asp-controller="Home" asp-action="Index" role="button">Back</a>
         <span id="error" class=" text-center"></span>
     </div>
 </div>
-
 <script type="text/javascript">
     function decrementSold() {
         const dataBody = { amount: parseInt(document.getElementById("newSold").value), toIncrement: false }
@@ -28,7 +27,6 @@
         errorMessage()
     }
 </script>
-
 
 <script>
     function errorMessage() {

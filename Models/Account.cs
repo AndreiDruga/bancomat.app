@@ -1,16 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace bancomat.app.Models
-{
-    public class Account
-    {  
-        [Key]
-        public int Id { get; set; }
-        public int Userid { get; set; }
+{ 
+     class Account
+    {
+               [Key]
+            public int Id { get; set; }
 
-        public string Email { get; set; }
+            [DataType(DataType.EmailAddress)]
+            public string Email { get; set; }
 
-        public double Amount { get; set; }
-
+             [ForeignKey("UserBalance")]
+             public int UserId { get; set; }
+        public virtual UserBalance UserBalance { get; set; }
     }
 }

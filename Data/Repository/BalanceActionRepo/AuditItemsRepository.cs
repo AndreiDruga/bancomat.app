@@ -1,5 +1,4 @@
 ﻿using bancomat.app.Models;
-
 namespace bancomat.app.Data.Repository.BalanceActionRepo
 {
     public class AuditItemsRepository : IAuditItemsRepository

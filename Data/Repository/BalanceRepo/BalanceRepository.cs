@@ -1,6 +1,5 @@
 ﻿using bancomat.app.Models;
 using System.Linq;
-
 namespace bancomat.app.Data.Repository.BalanceRepo
 {
     public class BalanceRepository : IBalanceRepository
@@ -28,5 +27,7 @@ namespace bancomat.app.Data.Repository.BalanceRepo
             _context.Set<UserBalance>().Update(userBalance);
             _context.SaveChanges();
         }
+
+
     }
 }
